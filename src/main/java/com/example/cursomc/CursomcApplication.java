@@ -82,12 +82,12 @@ public void run(String... args) throws Exception {
 		
 		Cliente cli1 = new Cliente(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoCliente.PESSOAFISICA);
 		
-		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
+		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393")); //diz que esses telefones estão associados ao cliente 1
 		
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", cli1, c2);
 		
-		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2)); //diz que os endereços 1 e 2 estão associados ao cliente 1
 		
 		clienteRepository.saveAll(Arrays.asList(cli1)); //salva todos os clientes
 		enderecoRepository.saveAll(Arrays.asList(e1, e2)); //salva todos os endereços
