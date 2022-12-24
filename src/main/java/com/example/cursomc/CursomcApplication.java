@@ -113,7 +113,7 @@ public void run(String... args) throws Exception {
 		enderecoRepository.saveAll(Arrays.asList(e1, e2)); //salva todos os endereços
 		
 		//instanciação de datas
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
 		//instanciação dos objetos (pedido)
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
@@ -144,6 +144,9 @@ public void run(String... args) throws Exception {
 		p3.getItens().addAll(Arrays.asList(ip2)); //diz que o ItemPedido 2 está associado ao produto 3
 		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3)); //salva todos os ItensPedidos
+		
+		
+		
 		
 	}
 

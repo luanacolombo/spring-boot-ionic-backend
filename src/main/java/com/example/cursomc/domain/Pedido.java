@@ -16,6 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 public class Pedido implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -23,13 +26,17 @@ public class Pedido implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //geração automática dos ids
 	private Integer id;
+	
+	@JsonFormat(pattern="dd/MM/yyyy HH:mm")
 	private Date instante;
 	
 	//atributos, associações
+	@JsonManagedReference //Proteger contra serialização Json cíclica
 	@OneToOne (cascade=CascadeType.ALL, mappedBy="pedido") //necessário para não dar erro de entidade transiente quando for salvar um pedido e seu pagamento
 	//com isso foi feito o mapeamento bidirecional um p/ um, garantindo que o id do pagamento vai ser o mesmo do pedido correspondente a ele
 	private Pagamento pagamento;
 	
+	@JsonManagedReference //Proteger contra serialização Json cíclica
 	@ManyToOne
 	@JoinColumn(name="cliente_id") //nome da chave estrangeira
 	private Cliente cliente;
