@@ -145,9 +145,6 @@ public void run(String... args) throws Exception {
 		
 		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3)); //salva todos os ItensPedidos
 		
-		
-		
-		
 	}
 
 }
