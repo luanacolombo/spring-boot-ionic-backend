@@ -2,8 +2,10 @@ package com.example.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -32,7 +35,11 @@ public class Produto implements Serializable {
 		joinColumns = @JoinColumn(name = "produto_id"), //mapeamento da ista de categorias informando quem vai ser a tabela do banco de 
 		inverseJoinColumns = @JoinColumn(name = "categoria_id") //dados que vai fazer o meio de campo entre as 2 tabelas (prod. e cate.)
 			) //nessa notação é feita a definição de quem vai ser a tabela que vai fazer o muitos pra muitos no banco de dados
+	
 	private List<Categoria> categorias = new ArrayList<>(); //categorias é coleção, não entra no construtor
+	
+	@OneToMany(mappedBy="id.produto")
+	private Set<ItemPedido> itens = new HashSet<>(); //serve para garantir que não terá item repitido no mesmo pedido
 	
 	//construtor
 	public Produto() {
@@ -46,7 +53,14 @@ public class Produto implements Serializable {
 	}
 	
 	//Get e Set, métodos de acesso
-
+	public List<Pedido> getPedidos() { //irá varrer os itens itens de pedindo montando uma lista de pedidos associados a essess itens
+		List<Pedido> lista = new ArrayList<>();
+		for (ItemPedido x : itens) { //percorre a lista de itens que já existe na classe
+			 lista.add(x.getPedido()); //pra cada item de pedido x que existe na lista de itens será adicionado o pedido associado a ele na lista
+		}
+		return lista;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -78,6 +92,14 @@ public class Produto implements Serializable {
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+	
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
 
 	@Override //gera um código numérico p/ cada objeto
 	public int hashCode() {
@@ -95,6 +117,6 @@ public class Produto implements Serializable {
 		Produto other = (Produto) obj;
 		return Objects.equals(id, other.id);
 	}
-		
+	
 }	
 	

@@ -13,6 +13,7 @@ import com.example.cursomc.domain.Cidade;
 import com.example.cursomc.domain.Cliente;
 import com.example.cursomc.domain.Endereco;
 import com.example.cursomc.domain.Estado;
+import com.example.cursomc.domain.ItemPedido;
 import com.example.cursomc.domain.Pagamento;
 import com.example.cursomc.domain.PagamentoComBoleto;
 import com.example.cursomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.example.cursomc.repositories.CidadeRepository;
 import com.example.cursomc.repositories.ClienteRepository;
 import com.example.cursomc.repositories.EnderecoRepository;
 import com.example.cursomc.repositories.EstadoRepository;
+import com.example.cursomc.repositories.ItemPedidoRepository;
 import com.example.cursomc.repositories.PagamentoRepository;
 import com.example.cursomc.repositories.PedidoRepository;
 import com.example.cursomc.repositories.ProdutoRepository;
@@ -50,6 +52,8 @@ public class CursomcApplication implements CommandLineRunner {
 	private PedidoRepository pedidoRepository;
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public static void main(String[] args) { //executar o programa
 		SpringApplication.run(CursomcApplication.class, args);
@@ -126,6 +130,20 @@ public void run(String... args) throws Exception {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2)); //salva todos os pedidos
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2)); //salva todos os pagamento
+		
+		//instanciação dos objetos (ItemPedido)
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.00, 1, 800.00);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2)); //diz que os ItensPedidos 1 e 2 estão associados ao pedido 1
+		ped2.getItens().addAll(Arrays.asList(ip3)); //diz que o ItemPedido 3 está associado ao pedido 2
+		
+		p1.getItens().addAll(Arrays.asList(ip1)); //diz que o ItemPedido 1 está associado ao produto 1
+		p2.getItens().addAll(Arrays.asList(ip3)); //diz que o ItemPedido 3 está associado ao produto 2
+		p3.getItens().addAll(Arrays.asList(ip2)); //diz que o ItemPedido 2 está associado ao produto 3
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3)); //salva todos os ItensPedidos
 		
 	}
 
