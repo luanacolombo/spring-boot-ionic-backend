@@ -21,8 +21,13 @@ public class CategoriaService {
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Categoria.class.getName()));
 	} //agora o método de serviço vai lançar uma exceção caso o id não exista
 
-	public Categoria insert(Categoria obj) {
+	public Categoria insert(Categoria obj) { //inserir nova no postman
 		obj.setId(null);
+		return repo.save(obj);
+	}
+	
+	public Categoria update(Categoria obj) { //atualizar no postman
+		find(obj.getId()); //busca o obj no banco, caso não exista ele lança a exceção
 		return repo.save(obj);
 	}
 	
