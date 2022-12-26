@@ -64,8 +64,13 @@ public void run(String... args) throws Exception {
 	// TODO Auto-generated method stub
 		
 		//instanciação dos objetos (categorias)
-		Categoria cat1 = new Categoria(null, "informática");
-		Categoria cat2 = new Categoria(null, "escritório");
+		Categoria cat1 = new Categoria(null, "Informática");
+		Categoria cat2 = new Categoria(null, "Escritório");
+		Categoria cat3 = new Categoria(null, "Cama, mesa e banho");
+		Categoria cat4 = new Categoria(null, "Eletrônicos");
+		Categoria cat5 = new Categoria(null, "Jardinagem");
+		Categoria cat6 = new Categoria(null, "Decoração");
+		Categoria cat7 = new Categoria(null, "Perfumaria");
 		
 		//instanciação dos objetos (produtos)
 		Produto p1 = new Produto(null, "Computador", 2000.00);
@@ -80,7 +85,7 @@ public void run(String... args) throws Exception {
 		p3.getCategorias().addAll(Arrays.asList(cat1)); //diz que a categoria 1 está associada ao produto 3
 		
 		//salvar os objetos no banco de dados (categoriaRepository)
-		categoriaRepository.saveAll(Arrays.asList(cat1, cat2)); //salva todas as categorias
+		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7)); //salva todas as categorias
 		produtoRepository.saveAll(Arrays.asList(p1, p2, p3)); //salva todos os produtos
 		
 		//instanciação dos objetos (estado)

@@ -6,11 +6,13 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -60,6 +62,19 @@ public class CategoriaResource {
 		//percorrer a lista, map irá efetuar uma operação p/ cada elemento da lista, -> função anonima que recebe um obj com o new 
 		//passando o obj como argumento. Com isso, passar o stream de obj para o tipo lista usando o collect, que em apenas uma linha
 		//converte uma lista para outra lista
+		return ResponseEntity.ok().body(listDto);
+	}
+	
+	@RequestMapping(value="/page", method=RequestMethod.GET) //retorna página com todas as categorias
+	public ResponseEntity<Page<CategoriaDTO>> findPage(
+			@RequestParam(value="page", defaultValue="0") Integer page, //se não informar o parâmetro da página, automaticamente vai p/ 1º página
+			@RequestParam(value="linesPerPage", defaultValue="24") Integer linesPerPage, 
+			@RequestParam(value="orderBy", defaultValue="nome") String orderBy, //informa por qual campo quer ordenar
+			@RequestParam(value="direction", defaultValue="ASC") String direction) { //ASC ascendente, DESC descendente
+		Page<Categoria> list = service.findPage(page, linesPerPage, orderBy, direction);
+		Page<CategoriaDTO> listDto = list.map(obj -> new CategoriaDTO(obj)); //map irá efetuar uma 
+		//operação p/ cada elemento da página, -> função anonima que recebe um obj com o new 
+		//passando o obj como argumento. Convertendo cada obj da lista para um DTO
 		return ResponseEntity.ok().body(listDto);
 	}
 	
