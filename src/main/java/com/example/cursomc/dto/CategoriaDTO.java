@@ -14,7 +14,7 @@ public class CategoriaDTO implements Serializable {
 	private Integer id;
 	
 	
-	@NotEmpty(message="Preenchimento obrigatório") //se a validação não for verificada vai lançar a mensagem
+	@NotEmpty(message="Preenchimento obrigatório") //diz que não pode ser vazio, se a validação não for verificada vai lançar a mensagem
 	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres") //se a validação não for verificada vai lançar a mensagem
 	private String nome;
 	

@@ -52,7 +52,7 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
+		this.tipo = (tipo==null) ? null : tipo.getCod(); //tipo==null) ? null se for null, retorna nulo, : tipo.getCod() se não retorna o código
 	}
 
 	//gets e sets
