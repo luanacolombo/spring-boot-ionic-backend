@@ -34,8 +34,9 @@ public class CategoriaService {
 	}
 	
 	public Categoria update(Categoria obj) { //atualizar no postman
-		find(obj.getId()); //busca o obj no banco, caso não exista ele lança a exceção
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId()); //busca o obj no banco, caso não exista ele lança a exceção
+		updateData(newObj, obj); //atualiza os dados do nosso obj com base no obj que veio como argumento
+		return repo.save(newObj); //então retorna o novo obj
 	}
 	
 	public void delete(Integer id) {
@@ -64,4 +65,9 @@ public class CategoriaService {
 	public Categoria fromDTO(CategoriaDTO objDto) { //from, a partir de um DTO vai ser construido um objeto categoria
 		return new Categoria(objDto.getId(), objDto.getNome());
 	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
+	} //newObj que foi buscado do banco de dados com todos os dados, ele foi atualizado p/ os novos valores fornecidos no obj, feito isso ele salva o newObj
+	
 }

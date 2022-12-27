@@ -30,7 +30,7 @@ public class ClienteService {
 
 	public Cliente update(Cliente obj) { //atualizar no postman
 		Cliente newObj = find(obj.getId()); //busca o obj no banco, caso não exista ele lança a exceção
-		updateData(newObj, obj); //atualiza os dados do noso obj com base no obj que veio como argumento
+		updateData(newObj, obj); //atualiza os dados do nosso obj com base no obj que veio como argumento
 		return repo.save(newObj); //então retorna o novo obj
 	}
 	
