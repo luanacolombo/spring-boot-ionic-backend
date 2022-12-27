@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.example.cursomc.domain.Categoria;
+import com.example.cursomc.dto.CategoriaDTO;
 import com.example.cursomc.repositories.CategoriaRepository;
 import com.example.cursomc.services.exceptions.DataIntegrityException;
 import com.example.cursomc.services.exceptions.ObjectNotFoundException;
@@ -57,5 +58,10 @@ public class CategoriaService {
 	//ordem de aparição, p/ definir a direção descendente ou ascendente
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy); //pageRequest será um obj que irá preparar pras infos p/ ser feita a consulta, p/ retornar a página de dados
 		return repo.findAll(pageRequest);
+	}
+	
+	//método auxiliar que instancia uma categoria a partir de um DTO
+	public Categoria fromDTO(CategoriaDTO objDto) { //from, a partir de um DTO vai ser construido um objeto categoria
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }
