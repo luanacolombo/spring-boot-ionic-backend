@@ -76,17 +76,38 @@ public void run(String... args) throws Exception {
 		Produto p1 = new Produto(null, "Computador", 2000.00);
 		Produto p2 = new Produto(null, "Impressora", 800.00);
 		Produto p3 = new Produto(null, "Mouse", 80.00);
+		Produto p4 = new Produto(null, "Mesa de escritório", 300.00);
+		Produto p5 = new Produto(null, "toalho", 50.00);
+		Produto p6 = new Produto(null, "Colcha", 200.00);
+		Produto p7 = new Produto(null, "TV true color", 1200.00);
+		Produto p8 = new Produto(null, "Roçadeira", 800.00);
+		Produto p9 = new Produto(null, "Abajour", 100.00);
+		Produto p10 = new Produto(null, "Pendente", 180.00);
+		Produto p11 = new Produto(null, "Shampoo", 90.00);
 		
 		cat1.getProdutos().addAll(Arrays.asList(p1, p2, p3)); //diz que os produtos 1, 2 e 3 estão associados a categoria 1
-		cat2.getProdutos().addAll(Arrays.asList(p2)); //diz que o produto 2 está associado a categoria 2
+		cat2.getProdutos().addAll(Arrays.asList(p2, p4)); //diz que os produtos 2 e 4 estão associados a categoria 2
+		cat3.getProdutos().addAll(Arrays.asList(p5, p6)); //diz que os produtos 5 e 6 estão associados a categoria 3
+		cat4.getProdutos().addAll(Arrays.asList(p1, p2, p3, p7)); //diz que os produtos 1, 2, 3 e 7 estão associados a categoria 4
+		cat5.getProdutos().addAll(Arrays.asList(p8)); //diz que o produto 8 está associado a categoria 5
+		cat6.getProdutos().addAll(Arrays.asList(p9, p10)); //diz que os produtos 9 e 10 estão associados a categoria 6
+		cat7.getProdutos().addAll(Arrays.asList(p11)); //diz que o produto 11 está associado a categoria 7
 		
-		p1.getCategorias().addAll(Arrays.asList(cat1)); //diz que a categoria 1 está associada ao produto 1
-		p2.getCategorias().addAll(Arrays.asList(cat1, cat2)); //diz que as categorias 1 e 2 estão associadas ao produto 2
-		p3.getCategorias().addAll(Arrays.asList(cat1)); //diz que a categoria 1 está associada ao produto 3
+		p1.getCategorias().addAll(Arrays.asList(cat1, cat4)); //diz que as categorias 1 e 4 estão associadas ao produto 1
+		p2.getCategorias().addAll(Arrays.asList(cat1, cat2, cat4)); //diz que as categorias 1, 2 e 4 estão associadas ao produto 2
+		p3.getCategorias().addAll(Arrays.asList(cat1, cat4)); //diz que as categorias 1 e 4 estão associadas ao produto 3
+		p4.getCategorias().addAll(Arrays.asList(cat2)); //diz que a categoria 2 está associada ao produto 4
+		p5.getCategorias().addAll(Arrays.asList(cat3)); //diz que a categoria 3 está associada ao produto 5
+		p6.getCategorias().addAll(Arrays.asList(cat3)); //diz que a categoria 3 está associada ao produto 6
+		p7.getCategorias().addAll(Arrays.asList(cat4)); //diz que a categoria 4 está associada ao produto 7
+		p8.getCategorias().addAll(Arrays.asList(cat5)); //diz que a categoria 5 está associada ao produto 8
+		p9.getCategorias().addAll(Arrays.asList(cat6)); //diz que a categoria 6 está associada ao produto 9
+		p10.getCategorias().addAll(Arrays.asList(cat6)); //diz que a categoria 6 está associada ao produto 10
+		p11.getCategorias().addAll(Arrays.asList(cat7)); //diz que a categoria 7 está associada ao produto 11
 		
 		//salvar os objetos no banco de dados (categoriaRepository)
 		categoriaRepository.saveAll(Arrays.asList(cat1, cat2, cat3, cat4, cat5, cat6, cat7)); //salva todas as categorias
-		produtoRepository.saveAll(Arrays.asList(p1, p2, p3)); //salva todos os produtos
+		produtoRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11)); //salva todos os produtos
 		
 		//instanciação dos objetos (estado)
 		Estado est1 = new Estado(null, "Minas gerais");
