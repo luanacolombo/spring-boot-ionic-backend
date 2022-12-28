@@ -19,7 +19,7 @@ public class ClienteDTO implements Serializable {
 	private String nome;
 	
 	@NotEmpty(message="Preenchimento obrigatorio")
-	@Email(message="Email invalido") //verifica se o email está com os caracteres certinhos, com o @, etc
+	@Email(message="Email invalido") //verifica se o email está sintaticamente correto
 	private String email;
 	
 	//construtor
