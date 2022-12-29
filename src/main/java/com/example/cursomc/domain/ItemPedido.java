@@ -43,8 +43,16 @@ public class ItemPedido implements Serializable{
 		return id.getPedido();
 	}
 	
+	public void setPedido(Pedido pedido) { //irá definir o pedido associado ao ItemPedido
+		id.setPedido(pedido);
+	}
+	
 	public Produto getProduto() { //é p/ ter acesso direto ao produto fora da classe ItemPedido
 		return id.getProduto();
+	}
+	
+	public void setProduto(Produto produto) { //irá definir o produto associado ao ItemPedido
+		id.setProduto(produto);
 	}
 	
 	public ItemPedidoPK getId() {
