@@ -19,6 +19,7 @@ import com.example.cursomc.services.exceptions.ObjectNotFoundException;
 @Service
 public class PedidoService {
 
+	//interfaces
 	@Autowired
 	private PedidoRepository repo;
 	
@@ -36,6 +37,9 @@ public class PedidoService {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	public Pedido find(Integer id) { //método buscar recebe um id do tipo integer como parâmetro
 		Optional<Pedido> obj = repo.findById(id); //vai no banco de dados busca uma categoria com esse id e já retorna o obj pronto
@@ -63,7 +67,7 @@ public class PedidoService {
 			ip.setPedido(obj); 
 		}
 		itemPedidoRepository.saveAll(obj.getItens()); //salva o pedido
-		System.out.println(obj);
+		emailService.sendOrderConfirmationEmail(obj);
 		return obj;
 	}
 	
