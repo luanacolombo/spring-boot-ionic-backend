@@ -34,6 +34,9 @@ public class PedidoService {
 	@Autowired
 	private ProdutoService produtoService;
 	
+	@Autowired
+	private ClienteService clienteService;
+	
 	public Pedido find(Integer id) { //método buscar recebe um id do tipo integer como parâmetro
 		Optional<Pedido> obj = repo.findById(id); //vai no banco de dados busca uma categoria com esse id e já retorna o obj pronto
 		return obj.orElseThrow(() -> new ObjectNotFoundException( 
@@ -44,6 +47,7 @@ public class PedidoService {
 	public Pedido insert(Pedido obj) {
 		obj.setId(null); //p/ inserir um novo pedido
 		obj.setInstante(new Date()); //cria uma nova data com o instante atual
+		obj.setCliente(clienteService.find(obj.getCliente().getId()));
 		obj.getPagamento().setEstado(EstadoPagamento.PENDENTE);
 		obj.getPagamento().setPedido(obj); //associação de mão dupla, o pagamento tem que conhecer o pedido
 		if (obj.getPagamento() instanceof PagamentoComBoleto) { //se o pagamento for do tipo com boleto
@@ -54,10 +58,12 @@ public class PedidoService {
 		pagamentoRepository.save(obj.getPagamento()); //salva o pagamento 	
 		for (ItemPedido ip : obj.getItens()) { //percorre todos os itens de pedido associados ao obj 
 			ip.setDesconto(0.0); //passa o desconto
-			ip.setPreco(produtoService.find(ip.getProduto().getId()).getPreco()); //busca o produto no banco e depois o preço, seta o preço do pedido com o do produto
+			ip.setProduto(produtoService.find(ip.getProduto().getId()));
+			ip.setPreco(ip.getProduto().getPreco()); //busca o produto no banco e depois o preço, seta o preço do pedido com o do produto
 			ip.setPedido(obj); 
 		}
-		itemPedidoRepository.saveAll(obj.getItens()); //salta o pedido
+		itemPedidoRepository.saveAll(obj.getItens()); //salva o pedido
+		System.out.println(obj);
 		return obj;
 	}
 	
